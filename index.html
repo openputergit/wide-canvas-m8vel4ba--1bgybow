@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghibli-Style Nature Scene</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ghibli:wght@400;700&family=Studio+Ghibli&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to achieve Ghibli-like aesthetic */
+        .ghibli-bg {
+            background: linear-gradient(180deg, #e4c1f9 0%, #a8e6cf 100%);
+        }
+        .tree-animation {
+            animation: sway 6s ease-in-out infinite;
+        }
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(2deg); }
+        }
+        .cherry-blossom {
+            animation: fall 10s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        .ghibli-shadow {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="ghibli-bg min-h-screen overflow-hidden relative">
+    <!-- Animated Background Elements -->
+    <div id="cherryBlossoms" class="fixed w-full h-full pointer-events-none"></div>
+    
+    <!-- Main Scene -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="relative z-10 bg-white/30 backdrop-blur-sm rounded-2xl p-8 ghibli-shadow">
+            <h1 class="text-4xl md:text-6xl text-emerald-800 mb-6 text-center font-bold">Enchanted Garden</h1>
+            
+            <!-- Stylized Scene -->
+            <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+                <div class="w-full md:w-1/2">
+                    <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden">
+                        <div class="bg-gradient-to-b from-pink-200 to-green-200 h-full relative">
+                            <!-- Stylized Trees -->
+                            <div class="absolute bottom-0 left-1/4 tree-animation">
+                                <div class="w-8 h-32 bg-stone-700 rounded"></div>
+                                <div class="w-24 h-24 bg-pink-300 rounded-full -mt-16 -ml-8"></div>
+                            </div>
+                            <div class="absolute bottom-0 right-1/4 tree-animation" style="animation-delay: -2s;">
+                                <div class="w-8 h-40 bg-stone-700 rounded"></div>
+                                <div class="w-32 h-32 bg-pink-300 rounded-full -mt-20 -ml-12"></div>
+                            </div>
+                            
+                            <!-- Grass -->
+                            <div class="absolute bottom-0 w-full h-1/4 bg-green-400 rounded-t-3xl"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 text-emerald-900">
+                    <h2 class="text-2xl mb-4 font-semibold">Welcome to Our Magical Garden</h2>
+                    <p class="mb-4">In this enchanted space, cherry blossoms dance with the wind, and nature comes alive with Ghibli-inspired magic. The trees sway gently, creating a peaceful atmosphere that invites you to stay and dream.</p>
+                    <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
+                        Start Your Journey
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create falling cherry blossoms
+        function createCherryBlossom() {
+            const blossom = document.createElement('div');
+            blossom.className = 'cherry-blossom absolute w-2 h-2 bg-pink-200 rounded-full opacity-80';
+            blossom.style.left = Math.random() * 100 + 'vw';
+            blossom.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            document.getElementById('cherryBlossoms').appendChild(blossom);
+            
+            setTimeout(() => {
+                blossom.remove();
+            }, 10000);
+        }
+
+        // Generate cherry blossoms continuously
+        setInterval(createCherryBlossom, 300);
+
+        // Create initial set of blossoms
+        for(let i = 0; i < 20; i++) {
+            createCherryBlossom();
+        }
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
